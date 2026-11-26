@@ -1,0 +1,18 @@
+{
+  "name": "NEXORA — All-in-One Productivity Platform",
+  "short_name": "NEXORA",
+  "description": "Your everyday workspace for tasks, notes, habits, expenses, AI workflows, and utility tools.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f9f8",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

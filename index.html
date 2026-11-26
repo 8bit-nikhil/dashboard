@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA — All-in-One Productivity Dashboard</title>
+  <meta name="description" content="NEXORA is your everyday workspace: tasks, notes, habits, expenses, AI assistant, calendar, focus timer, and developer tools in one modern PWA platform." />
+  <meta name="theme-color" content="#10b981" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <!-- Mobile Sidebar Backdrop -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+    <!-- Fixed Left Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary Navigation">
+      <div class="sidebar-header">
+        <a href="#dashboard" class="brand" data-nav="dashboard">
+          <div class="brand-logo" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="9" height="9" rx="2.5" fill="currentColor" />
+              <rect x="13" y="2" width="9" height="9" rx="4.5" fill="currentColor" opacity="0.7" />
+              <rect x="2" y="13" width="9" height="9" rx="4.5" fill="currentColor" opacity="0.7" />
+              <rect x="13" y="13" width="9" height="9" rx="2.5" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">NEXORA</span>
+            <span class="brand-tagline">Your Everyday Workspace</span>
+          </div>
+        </a>
+        <button class="icon-btn sidebar-collapse-btn" id="sidebarCollapseBtn" type="button" title="Collapse sidebar" aria-label="Collapse sidebar">
+          <i data-lucide="panel-left-close"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <span class="nav-group-label">WORKSPACE</span>
+          <button class="nav-item active" type="button" data-nav="dashboard" title="Dashboard">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="nav-label">Dashboard</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="todo" title="To-Do List">
+            <i data-lucide="check-square"></i>
+            <span class="nav-label">To-Do List</span>
+            <span class="nav-badge" id="navTodoBadge">0</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="notes" title="Notes">
+            <i data-lucide="sticky-note"></i>
+            <span class="nav-label">Notes</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="calendar" title="Calendar">
+            <i data-lucide="calendar-days"></i>
+            <span class="nav-label">Calendar</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="focus" title="Focus Timer">
+            <i data-lucide="timer"></i>
+            <span class="nav-label">Focus Timer</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="projects" title="Projects">
+            <i data-lucide="folder-kanban"></i>
+            <span class="nav-label">Projects</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="ai" title="AI Assistant">
+            <i data-lucide="sparkles"></i>
+            <span class="nav-label">AI Assistant</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="expenses" title="Expense Tracker">
+            <i data-lucide="wallet"></i>
+            <span class="nav-label">Expenses</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="habits" title="Habit Tracker">
+            <i data-lucide="flame"></i>
+            <span class="nav-label">Habits</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="bookmarks" title="Bookmarks">
+            <i data-lucide="bookmark"></i>
+            <span class="nav-label">Bookmarks</span>
+          </button>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-group-label">TOOLS</span>
+          <button class="nav-item" type="button" data-nav="weather" title="Weather">
+            <i data-lucide="cloud-sun"></i>
+            <span class="nav-label">Weather</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="calculator" title="Calculator">
+            <i data-lucide="calculator"></i>
+            <span class="nav-label">Calculator</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="clock" title="Digital Clock">
+            <i data-lucide="clock-4"></i>
+            <span class="nav-label">Digital Clock</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="stopwatch" title="Stopwatch">
+            <i data-lucide="watch"></i>
+            <span class="nav-label">Stopwatch</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="converter" title="Unit Converter">
+            <i data-lucide="arrow-left-right"></i>
+            <span class="nav-label">Unit Converter</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="worldclock" title="World Clock">
+            <i data-lucide="globe-2"></i>
+            <span class="nav-label">World Clock</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="qrcode" title="QR Code Generator">
+            <i data-lucide="qr-code"></i>
+            <span class="nav-label">QR Generator</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="palette" title="Color Palette Generator">
+            <i data-lucide="palette"></i>
+            <span class="nav-label">Color Palette</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="typing" title="Typing Speed Test">
+            <i data-lucide="keyboard"></i>
+            <span class="nav-label">Typing Test</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="markdown" title="Markdown Editor">
+            <i data-lucide="file-code-2"></i>
+            <span class="nav-label">Markdown Editor</span>
+          </button>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-group-label">PERSONAL</span>
+          <button class="nav-item" type="button" data-nav="settings" title="Settings">
+            <i data-lucide="settings"></i>
+            <span class="nav-label">Settings</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="help" title="Help & Support">
+            <i data-lucide="help-circle"></i>
+            <span class="nav-label">Help &amp; Support</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-focus-pill" id="sidebarFocusPill" data-nav="focus" role="button" tabindex="0" title="Open Focus Timer">
+          <div class="focus-dot"></div>
+          <div class="focus-pill-text">
+            <span class="focus-pill-label">Focus Session</span>
+            <span class="focus-pill-time" id="sidebarTimerReadout">25:00</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Area -->
+    <div class="main-wrapper">
+      <!-- Top Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" type="button" title="Open navigation menu" aria-label="Open navigation menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div class="global-search" id="globalSearchWrapper">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" id="globalSearchInput" placeholder="Search everything across NEXORA..." autocomplete="off" aria-label="Search across all application data" />
+            <button class="cmd-trigger-pill" id="openCommandPaletteBtn" type="button" title="Open Command Palette (Ctrl+K)">Ctrl+K</button>
+            <div class="search-results-dropdown hidden" id="globalSearchResults" role="listbox"></div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <span class="offline-badge hidden" id="offlineStatusBadge" title="Offline PWA mode active">
+            <i data-lucide="wifi-off"></i>
+            <span>Offline</span>
+          </span>
+          <div class="topbar-date-chip" id="topbarDateChip" title="Current date">
+            <i data-lucide="calendar"></i>
+            <span id="topbarDateText">Loading...</span>
+          </div>
+
+          <button class="icon-btn" id="themeToggleBtn" type="button" title="Toggle Light / Dark mode" aria-label="Toggle Light or Dark mode">
+            <i data-lucide="moon" id="themeIcon"></i>
+          </button>
+
+          <div class="notification-wrapper">
+            <button class="icon-btn" id="notificationsBtn" type="button" title="Notifications" aria-label="Notifications">
+              <i data-lucide="bell"></i>
+              <span class="notification-dot hidden" id="notificationDot"></span>
+            </button>
+            <div class="notifications-dropdown hidden" id="notificationsDropdown">
+              <div class="dropdown-header">
+                <span>Notifications</span>
+                <button class="text-btn" id="clearNotificationsBtn" type="button">Clear all</button>
+              </div>
+              <div class="notifications-list" id="notificationsList"></div>
+            </div>
+          </div>
+
+          <button class="user-profile-btn" id="userProfileBtn" type="button" data-nav="settings" title="Account & Settings">
+            <span class="user-avatar" id="headerAvatar">NX</span>
+            <span class="user-meta">
+              <span class="user-name" id="headerUserName">Alex Morgan</span>
+              <span class="user-role" id="headerUserRole">Workspace Pro</span>
+            </span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content -->
+      <main class="main-content" id="mainContent">
+        <!-- VIEW: DASHBOARD -->
+        <section class="view active" id="view-dashboard" data-view="dashboard">
+          <div class="page-header dashboard-hero">
+            <div>
+              <h1 class="page-title" id="dashboardGreeting">Good Morning! Welcome Back 👋</h1>
+              <p class="page-subtitle">Manage your day, stay focused and get things done.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" id="dashCustomizeBtn" type="button" title="Drag & toggle dashboard widgets">
+                <i data-lucide="sliders-horizontal"></i>
+                <span>Customize</span>
+              </button>
+              <button class="btn btn-secondary" id="dashQuickNoteBtn" type="button">
+                <i data-lucide="file-plus-2"></i>
+                <span>Quick Note</span>
+              </button>
+              <button class="btn btn-primary" id="dashAddTaskBtn" type="button">
+                <i data-lucide="plus"></i>
+                <span>Add Task</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dashboard Customization Drawer -->
+          <div class="card customize-bar hidden" id="dashCustomizeBar">
+            <div class="customize-bar-head">
+              <div>
+                <strong>Customize Dashboard Layout</strong>
+                <p class="muted-text">Drag widgets by their grip handle to reorder, or toggle visibility below.</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn btn-secondary btn-sm" id="dashResetLayoutBtn" type="button">
+                  <i data-lucide="rotate-ccw"></i>
+                  <span>Reset Layout</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="dashDoneCustomizeBtn" type="button">Done</button>
+              </div>
+            </div>
+            <div class="customize-toggles" id="dashWidgetToggles"></div>
+          </div>
+
+          <!-- 4 Statistics Cards -->
+          <div class="stats-grid">
+            <article class="stat-card" data-nav="todo" role="button" tabindex="0">
+              <div class="stat-card-top">
+                <span class="stat-label">Total Tasks</span>
+                <span class="stat-icon-wrap"><i data-lucide="list-todo"></i></span>
+              </div>
+              <div class="stat-value" id="statTotalTasks">0</div>
+              <div class="stat-desc" id="statTotalDesc">Across your workspace</div>
+            </article>
+
+            <article class="stat-card" data-nav="todo" role="button" tabindex="0">
+              <div class="stat-card-top">
+                <span class="stat-label">Completed Tasks</span>
+                <span class="stat-icon-wrap"><i data-lucide="check-circle-2"></i></span>
+              </div>
+              <div class="stat-value" id="statCompletedTasks">0</div>
+              <div class="stat-desc" id="statCompletedDesc">0% completion rate</div>
+            </article>
+
+            <article class="stat-card" data-nav="todo" role="button" tabindex="0">
+              <div class="stat-card-top">
+                <span class="stat-label">Pending Tasks</span>
+                <span class="stat-icon-wrap"><i data-lucide="clock"></i></span>
+              </div>
+              <div class="stat-value" id="statPendingTasks">0</div>
+              <div class="stat-desc" id="statPendingDesc">Remaining to finish</div>
+            </article>
+
+            <article class="stat-card" data-nav="projects" role="button" tabindex="0">
+              <div class="stat-card-top">
+                <span class="stat-label">Active Projects</span>
+                <span class="stat-icon-wrap"><i data-lucide="folder-kanban"></i></span>
+              </div>
+              <div class="stat-value" id="statActiveProjects">0</div>
+              <div class="stat-desc" id="statProjectsDesc">Currently in progress</div>
+            </article>
+          </div>
+
+          <!-- Dashboard Primary Grid -->
+          <div class="dashboard-grid" id="dashboardGrid">
+            <!-- A. Weekly Productivity Chart -->
+            <section class="card span-2 dash-widget" data-widget-id="weekly" aria-labelledby="weeklyChartHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="weeklyChartHeading">Weekly Productivity</h2>
+                    <p class="card-subtitle">Completed tasks over the last 7 days</p>
+                  </div>
+                </div>
+                <div class="pill-badge" id="weeklyTotalBadge">0 completed</div>
+              </div>
+              <div class="weekly-chart-container" id="weeklyChart"></div>
+            </section>
+
+            <!-- E. Weather Widget -->
+            <section class="card weather-widget-card dash-widget" data-widget-id="weather" aria-labelledby="dashWeatherHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashWeatherHeading">Weather</h2>
+                    <p class="card-subtitle" id="dashWeatherLocationLabel">Live conditions</p>
+                  </div>
+                </div>
+                <button class="icon-btn-sm" type="button" data-nav="weather" title="Open full Weather tool">
+                  <i data-lucide="arrow-up-right"></i>
+                </button>
+              </div>
+              <form class="mini-search-form" id="dashWeatherForm">
+                <input type="text" id="dashWeatherInput" placeholder="Search city (e.g. London)" aria-label="Search weather city" />
+                <button class="btn btn-sm btn-secondary" type="submit" title="Fetch weather">
+                  <i data-lucide="search"></i>
+                </button>
+              </form>
+              <div id="dashWeatherBody" class="weather-widget-body"></div>
+            </section>
+
+            <!-- B. My Tasks -->
+            <section class="card dash-widget" data-widget-id="tasks" aria-labelledby="dashTasksHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashTasksHeading">My Tasks</h2>
+                    <p class="card-subtitle">Upcoming &amp; active items</p>
+                  </div>
+                </div>
+                <button class="text-btn" type="button" data-nav="todo">View all</button>
+              </div>
+              <div id="dashTasksList" class="dash-list"></div>
+            </section>
+
+            <!-- C. Quick Notes -->
+            <section class="card dash-widget" data-widget-id="notes" aria-labelledby="dashNotesHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashNotesHeading">Quick Notes</h2>
+                    <p class="card-subtitle">Recently saved thoughts</p>
+                  </div>
+                </div>
+                <button class="icon-btn-sm" id="dashAddNoteInlineBtn" type="button" title="New note">
+                  <i data-lucide="plus"></i>
+                </button>
+              </div>
+              <div id="dashNotesList" class="dash-list"></div>
+            </section>
+
+            <!-- D. Focus Timer Widget -->
+            <section class="card focus-widget-card dash-widget" data-widget-id="focus" aria-labelledby="dashFocusHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashFocusHeading">Focus Timer</h2>
+                    <p class="card-subtitle" id="dashFocusModeText">Focus Session</p>
+                  </div>
+                </div>
+                <button class="icon-btn-sm" type="button" data-nav="focus" title="Open full Focus Timer">
+                  <i data-lucide="maximize-2"></i>
+                </button>
+              </div>
+              <div class="dash-focus-body">
+                <div class="mode-pills compact" id="dashFocusModes">
+                  <button class="mode-pill active" type="button" data-focus-mode="focus">25m Focus</button>
+                  <button class="mode-pill" type="button" data-focus-mode="short">5m Short</button>
+                  <button class="mode-pill" type="button" data-focus-mode="long">15m Long</button>
+                </div>
+                <div class="dash-focus-clock" id="dashFocusDisplay">25:00</div>
+                <div class="dash-focus-controls">
+                  <button class="btn btn-primary" id="dashFocusStartBtn" type="button">
+                    <i data-lucide="play"></i>
+                    <span>Start</span>
+                  </button>
+                  <button class="btn btn-secondary" id="dashFocusPauseBtn" type="button" disabled>
+                    <i data-lucide="pause"></i>
+                    <span>Pause</span>
+                  </button>
+                  <button class="icon-btn" id="dashFocusResetBtn" type="button" title="Reset timer">
+                    <i data-lucide="rotate-ccw"></i>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- F. Today's Habits Snapshot -->
+            <section class="card dash-widget" data-widget-id="habits" aria-labelledby="dashHabitsHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashHabitsHeading">Daily Habits</h2>
+                    <p class="card-subtitle">Streaks &amp; check-ins</p>
+                  </div>
+                </div>
+                <button class="text-btn" type="button" data-nav="habits">Open</button>
+              </div>
+              <div id="dashHabitsList" class="dash-list"></div>
+            </section>
+
+            <!-- G. Monthly Expenses Snapshot -->
+            <section class="card dash-widget" data-widget-id="expenses" aria-labelledby="dashExpensesHeading">
+              <div class="card-header">
+                <div class="widget-title-wrap">
+                  <button class="widget-drag-handle" type="button" title="Drag to reorder" aria-label="Drag widget"><i data-lucide="grip-vertical"></i></button>
+                  <div>
+                    <h2 class="card-title" id="dashExpensesHeading">Finance Pulse</h2>
+                    <p class="card-subtitle">Income vs. spending</p>
+                  </div>
+                </div>
+                <button class="text-btn" type="button" data-nav="expenses">Details</button>
+              </div>
+              <div id="dashExpensesBody"></div>
+            </section>
+          </div>
+        </section>
+
+        <!-- VIEW: TO-DO LIST -->
+        <section class="view" id="view-todo" data-view="todo">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">To-Do List</h1>
+              <p class="page-subtitle">Organize tasks, set priorities and due dates, and stay on track.</p>
+            </div>
+            <button class="btn btn-primary" id="todoOpenModalBtn" type="button">
+              <i data-lucide="plus"></i>
+              <span>New Task</span>
+            </button>
+          </div>
+
+          <div class="card toolbar-card">
+            <div class="filter-tabs" id="todoStatusFilters">
+              <button class="filter-tab active" type="button" data-filter="all">All</button>
+              <button class="filter-tab" type="button" data-filter="pending">Pending</button>
+              <button class="filter-tab" type="button" data-filter="completed">Completed</button>
+            </div>
+            <div class="toolbar-right">
+              <select id="todoPriorityFilter" class="select-input" aria-label="Filter by priority">
+                <option value="all">All Priorities</option>
+                <option value="High">High Priority</option>
+                <option value="Medium">Medium Priority</option>
+                <option value="Low">Low Priority</option>
+              </select>
+              <input type="search" id="todoSearchInput" class="text-input" placeholder="Filter tasks..." aria-label="Filter tasks" />
+            </div>
+          </div>
+
+          <div class="card">
+            <div id="todoListContainer" class="todo-list"></div>
+          </div>
+        </section>
+
+        <!-- VIEW: NOTES -->
+        <section class="view" id="view-notes" data-view="notes">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Notes</h1>
+              <p class="page-subtitle">Capture ideas, meeting summaries, and reminders — saved automatically.</p>
+            </div>
+            <button class="btn btn-primary" id="notesNewBtn" type="button">
+              <i data-lucide="file-plus-2"></i>
+              <span>Create Note</span>
+            </button>
+          </div>
+
+          <div class="notes-workspace">
+            <div class="card notes-sidebar-panel">
+              <div class="notes-search-wrap">
+                <i data-lucide="search"></i>
+                <input type="search" id="notesSearchInput" placeholder="Search notes..." aria-label="Search notes" />
+              </div>
+              <div id="notesListContainer" class="notes-list"></div>
+            </div>
+
+            <div class="card notes-editor-panel" id="notesEditorPanel">
+              <div class="notes-editor-empty hidden" id="notesEditorEmpty">
+                <i data-lucide="sticky-note"></i>
+                <h3>Select or create a note</h3>
+                <p>Your notes are automatically saved locally in your browser.</p>
+                <button class="btn btn-primary" id="notesEmptyCreateBtn" type="button">Create Note</button>
+              </div>
+              <div class="notes-editor-form" id="notesEditorForm">
+                <div class="notes-editor-top">
+                  <input type="text" id="noteTitleInput" class="note-title-input" placeholder="Note title..." aria-label="Note title" />
+                  <div class="notes-editor-actions">
+                    <span class="save-indicator" id="noteSaveStatus">Saved</span>
+                    <button class="icon-btn danger" id="noteDeleteBtn" type="button" title="Delete note">
+                      <i data-lucide="trash-2"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="notes-meta-row">
+                  <select id="noteTagSelect" class="select-input compact" aria-label="Note category">
+                    <option value="General">General</option>
+                    <option value="Work">Work</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Ideas">Ideas</option>
+                  </select>
+                  <span class="note-timestamp" id="noteTimestampLabel">Updated just now</span>
+                </div>
+                <textarea id="noteBodyInput" class="note-body-input" placeholder="Start writing your note here..." aria-label="Note content"></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: CALENDAR -->
+        <section class="view" id="view-calendar" data-view="calendar">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Calendar</h1>
+              <p class="page-subtitle">Schedule events, deadlines, and milestones across your month.</p>
+            </div>
+            <button class="btn btn-primary" id="calendarAddEventBtn" type="button">
+              <i data-lucide="calendar-plus"></i>
+              <span>Add Event</span>
+            </button>
+          </div>
+
+          <div class="calendar-layout">
+            <div class="card calendar-main-card">
+              <div class="calendar-toolbar">
+                <div class="calendar-month-nav">
+                  <button class="icon-btn" id="calPrevMonthBtn" type="button" title="Previous month">
+                    <i data-lucide="chevron-left"></i>
+                  </button>
+                  <h2 id="calMonthTitle" class="cal-month-title">November 2026</h2>
+                  <button class="icon-btn" id="calNextMonthBtn" type="button" title="Next month">
+                    <i data-lucide="chevron-right"></i>
+                  </button>
+                </div>
+                <button class="btn btn-secondary btn-sm" id="calTodayBtn" type="button">Today</button>
+              </div>
+              <div class="calendar-weekdays">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <div class="card calendar-events-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title" id="selectedDateHeading">Selected Day</h2>
+                  <p class="card-subtitle" id="selectedDateSub">Events &amp; schedule</p>
+                </div>
+                <button class="icon-btn-sm" id="addEventForDayBtn" type="button" title="Add event on this date">
+                  <i data-lucide="plus"></i>
+                </button>
+              </div>
+              <div id="dayEventsList" class="day-events-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: FOCUS TIMER -->
+        <section class="view" id="view-focus" data-view="focus">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Focus Timer</h1>
+              <p class="page-subtitle">Stay in deep flow with Pomodoro focus intervals and restorative breaks.</p>
+            </div>
+            <div class="pill-badge" id="focusSessionsBadge">0 sessions completed today</div>
+          </div>
+
+          <div class="focus-page-grid">
+            <div class="card focus-main-card">
+              <div class="mode-pills" id="focusViewModes">
+                <button class="mode-pill active" type="button" data-focus-mode="focus">Focus (25m)</button>
+                <button class="mode-pill" type="button" data-focus-mode="short">Short Break (5m)</button>
+                <button class="mode-pill" type="button" data-focus-mode="long">Long Break (15m)</button>
+              </div>
+
+              <div class="focus-ring-wrapper">
+                <svg class="focus-ring" viewBox="0 0 220 220">
+                  <circle class="focus-ring-bg" cx="110" cy="110" r="96"></circle>
+                  <circle class="focus-ring-progress" id="focusRingProgress" cx="110" cy="110" r="96"></circle>
+                </svg>
+                <div class="focus-ring-center">
+                  <span class="focus-mode-label" id="focusViewModeLabel">Focus Session</span>
+                  <span class="focus-time-big" id="focusViewDisplay">25:00</span>
+                  <span class="focus-status-text" id="focusStatusText">Ready to begin</span>
+                </div>
+              </div>
+
+              <div class="focus-actions-row">
+                <button class="btn btn-primary btn-lg" id="focusViewStartBtn" type="button">
+                  <i data-lucide="play"></i>
+                  <span>Start</span>
+                </button>
+                <button class="btn btn-secondary btn-lg" id="focusViewPauseBtn" type="button" disabled>
+                  <i data-lucide="pause"></i>
+                  <span>Pause</span>
+                </button>
+                <button class="btn btn-ghost btn-lg" id="focusViewResetBtn" type="button">
+                  <i data-lucide="rotate-ccw"></i>
+                  <span>Reset</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card focus-tips-card">
+              <h2 class="card-title">Session Settings &amp; Tips</h2>
+              <p class="card-subtitle">Customize your Pomodoro rhythm anytime.</p>
+              <div class="focus-info-list">
+                <div class="focus-info-item">
+                  <span class="focus-info-icon"><i data-lucide="flame"></i></span>
+                  <div>
+                    <strong>Deep Focus</strong>
+                    <p>Work on one single task without context-switching until the chime.</p>
+                  </div>
+                </div>
+                <div class="focus-info-item">
+                  <span class="focus-info-icon"><i data-lucide="coffee"></i></span>
+                  <div>
+                    <strong>Short Break</strong>
+                    <p>Step away from the screen, stretch, or hydrate for 5 minutes.</p>
+                  </div>
+                </div>
+                <div class="focus-info-item">
+                  <span class="focus-info-icon"><i data-lucide="bell-ring"></i></span>
+                  <div>
+                    <strong>Audio &amp; Browser Alerts</strong>
+                    <p>You will receive a gentle chime and toast notification when time ends.</p>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-secondary" id="enableBrowserNotifBtn" type="button">
+                <i data-lucide="bell"></i>
+                <span>Enable Desktop Notifications</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: PROJECTS -->
+        <section class="view" id="view-projects" data-view="projects">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Projects</h1>
+              <p class="page-subtitle">Track active initiatives, progress milestones, and deliverables.</p>
+            </div>
+            <button class="btn btn-primary" id="newProjectBtn" type="button">
+              <i data-lucide="folder-plus"></i>
+              <span>New Project</span>
+            </button>
+          </div>
+          <div id="projectsGrid" class="projects-grid"></div>
+        </section>
+
+        <!-- VIEW: WEATHER -->
+        <section class="view" id="view-weather" data-view="weather">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Weather</h1>
+              <p class="page-subtitle">Real-time weather conditions powered by Open-Meteo.</p>
+            </div>
+            <div class="unit-toggle-group" role="group" aria-label="Temperature unit">
+              <button class="unit-toggle active" type="button" data-temp-unit="C">°C</button>
+              <button class="unit-toggle" type="button" data-temp-unit="F">°F</button>
+            </div>
+          </div>
+
+          <div class="card weather-search-card">
+            <form id="weatherPageForm" class="weather-search-bar">
+              <i data-lucide="map-pin"></i>
+              <input type="text" id="weatherPageInput" placeholder="Search any city worldwide (e.g., Tokyo, New York, Paris, Delhi)..." aria-label="Search city" />
+              <button class="btn btn-primary" type="submit">
+                <i data-lucide="search"></i>
+                <span>Search</span>
+              </button>
+            </form>
+            <div class="quick-cities">
+              <span>Quick select:</span>
+              <button class="chip-btn" type="button" data-weather-city="New Delhi">New Delhi</button>
+              <button class="chip-btn" type="button" data-weather-city="London">London</button>
+              <button class="chip-btn" type="button" data-weather-city="New York">New York</button>
+              <button class="chip-btn" type="button" data-weather-city="Tokyo">Tokyo</button>
+              <button class="chip-btn" type="button" data-weather-city="Dubai">Dubai</button>
+            </div>
+          </div>
+
+          <div id="weatherPageContent" class="weather-page-content"></div>
+        </section>
+
+        <!-- VIEW: CALCULATOR -->
+        <section class="view" id="view-calculator" data-view="calculator">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Calculator</h1>
+              <p class="page-subtitle">Fast arithmetic with full keyboard support and calculation history.</p>
+            </div>
+          </div>
+
+          <div class="calculator-layout">
+            <div class="card calculator-card">
+              <div class="calc-display">
+                <div class="calc-expression" id="calcExpression">&nbsp;</div>
+                <div class="calc-result" id="calcResult">0</div>
+              </div>
+              <div class="calc-keypad" id="calcKeypad">
+                <button class="calc-btn fn" type="button" data-calc="clear">C</button>
+                <button class="calc-btn fn" type="button" data-calc="backspace" title="Backspace">⌫</button>
+                <button class="calc-btn fn" type="button" data-calc="percent">%</button>
+                <button class="calc-btn op" type="button" data-calc="/">÷</button>
+
+                <button class="calc-btn" type="button" data-calc="7">7</button>
+                <button class="calc-btn" type="button" data-calc="8">8</button>
+                <button class="calc-btn" type="button" data-calc="9">9</button>
+                <button class="calc-btn op" type="button" data-calc="*">×</button>
+
+                <button class="calc-btn" type="button" data-calc="4">4</button>
+                <button class="calc-btn" type="button" data-calc="5">5</button>
+                <button class="calc-btn" type="button" data-calc="6">6</button>
+                <button class="calc-btn op" type="button" data-calc="-">−</button>
+
+                <button class="calc-btn" type="button" data-calc="1">1</button>
+                <button class="calc-btn" type="button" data-calc="2">2</button>
+                <button class="calc-btn" type="button" data-calc="3">3</button>
+                <button class="calc-btn op" type="button" data-calc="+">+</button>
+
+                <button class="calc-btn span-2" type="button" data-calc="0">0</button>
+                <button class="calc-btn" type="button" data-calc=".">.</button>
+                <button class="calc-btn eq" type="button" data-calc="=">=</button>
+              </div>
+            </div>
+
+            <div class="card calc-history-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">History</h2>
+                  <p class="card-subtitle">Click an entry to reuse result</p>
+                </div>
+                <button class="text-btn" id="clearCalcHistoryBtn" type="button">Clear</button>
+              </div>
+              <div id="calcHistoryList" class="calc-history-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: DIGITAL CLOCK -->
+        <section class="view" id="view-clock" data-view="clock">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Digital Clock</h1>
+              <p class="page-subtitle">Precision live local time with 12-hour and 24-hour display.</p>
+            </div>
+            <div class="unit-toggle-group">
+              <button class="unit-toggle active" type="button" data-clock-format="12">12-Hour</button>
+              <button class="unit-toggle" type="button" data-clock-format="24">24-Hour</button>
+            </div>
+          </div>
+
+          <div class="card digital-clock-card">
+            <div class="digital-clock-badge" id="clockTimezoneLabel">Local Time</div>
+            <div class="digital-clock-time">
+              <span id="digitalClockMain">12:00:00</span>
+              <span class="digital-clock-ampm" id="digitalClockAmPm">AM</span>
+            </div>
+            <div class="digital-clock-date" id="digitalClockDate">Thursday, November 26, 2026</div>
+          </div>
+        </section>
+
+        <!-- VIEW: STOPWATCH -->
+        <section class="view" id="view-stopwatch" data-view="stopwatch">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Stopwatch</h1>
+              <p class="page-subtitle">Measure intervals down to milliseconds with instant lap recording.</p>
+            </div>
+          </div>
+
+          <div class="stopwatch-layout">
+            <div class="card stopwatch-card">
+              <div class="stopwatch-readout">
+                <span id="stopwatchMain">00:00:00</span><span class="stopwatch-ms" id="stopwatchMs">.00</span>
+              </div>
+              <div class="stopwatch-controls">
+                <button class="btn btn-primary btn-lg" id="swStartBtn" type="button">
+                  <i data-lucide="play"></i>
+                  <span>Start</span>
+                </button>
+                <button class="btn btn-secondary btn-lg" id="swPauseBtn" type="button" disabled>
+                  <i data-lucide="pause"></i>
+                  <span>Pause</span>
+                </button>
+                <button class="btn btn-secondary btn-lg" id="swLapBtn" type="button" disabled>
+                  <i data-lucide="flag"></i>
+                  <span>Lap</span>
+                </button>
+                <button class="btn btn-ghost btn-lg" id="swResetBtn" type="button">
+                  <i data-lucide="rotate-ccw"></i>
+                  <span>Reset</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card stopwatch-laps-card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Laps</h2>
+                  <p class="card-subtitle">Split &amp; cumulative times</p>
+                </div>
+                <span class="pill-badge" id="swLapCount">0 laps</span>
+              </div>
+              <div id="swLapsList" class="laps-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: UNIT CONVERTER -->
+        <section class="view" id="view-converter" data-view="converter">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Unit Converter</h1>
+              <p class="page-subtitle">Instant conversions for length, weight, temperature, distance, time, and data.</p>
+            </div>
+          </div>
+
+          <div class="card converter-card">
+            <div class="converter-categories" id="converterCategories">
+              <button class="filter-tab active" type="button" data-conv-cat="length">Length</button>
+              <button class="filter-tab" type="button" data-conv-cat="weight">Weight</button>
+              <button class="filter-tab" type="button" data-conv-cat="temperature">Temperature</button>
+              <button class="filter-tab" type="button" data-conv-cat="distance">Distance</button>
+              <button class="filter-tab" type="button" data-conv-cat="time">Time</button>
+              <button class="filter-tab" type="button" data-conv-cat="data">Data Storage</button>
+            </div>
+
+            <div class="converter-grid">
+              <div class="converter-box">
+                <label class="field-label" for="convFromValue">From</label>
+                <input type="number" id="convFromValue" class="converter-input" value="1" step="any" />
+                <select id="convFromUnit" class="select-input"></select>
+              </div>
+
+              <button class="icon-btn swap-btn" id="convSwapBtn" type="button" title="Swap units">
+                <i data-lucide="arrow-left-right"></i>
+              </button>
+
+              <div class="converter-box">
+                <label class="field-label" for="convToValue">To</label>
+                <input type="number" id="convToValue" class="converter-input" step="any" />
+                <select id="convToUnit" class="select-input"></select>
+              </div>
+            </div>
+
+            <div class="converter-formula-bar">
+              <span id="convFormulaText">1 Meter = 100 Centimeters</span>
+              <button class="btn btn-secondary btn-sm" id="convCopyBtn" type="button">
+                <i data-lucide="copy"></i>
+                <span>Copy Result</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: WORLD CLOCK -->
+        <section class="view" id="view-worldclock" data-view="worldclock">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">World Clock</h1>
+              <p class="page-subtitle">Live times across major global hubs powered by IANA time zones.</p>
+            </div>
+            <div class="unit-toggle-group">
+              <button class="unit-toggle active" type="button" data-wc-format="12">12-Hour</button>
+              <button class="unit-toggle" type="button" data-wc-format="24">24-Hour</button>
+            </div>
+          </div>
+          <div id="worldClockGrid" class="world-clock-grid"></div>
+        </section>
+
+        <!-- VIEW: AI ASSISTANT -->
+        <section class="view" id="view-ai" data-view="ai">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">AI Assistant</h1>
+              <p class="page-subtitle">Connect your own AI API key to brainstorm, plan, and convert suggestions into tasks.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" id="aiConfigBtn" type="button">
+                <i data-lucide="key-round"></i>
+                <span>Configure API</span>
+              </button>
+              <button class="btn btn-secondary" id="aiClearChatBtn" type="button">
+                <i data-lucide="trash-2"></i>
+                <span>Clear Chat</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card ai-workspace-card">
+            <div class="ai-status-banner" id="aiStatusBanner"></div>
+            <div class="ai-chat-messages" id="aiChatMessages"></div>
+            <form class="ai-chat-form" id="aiChatForm">
+              <label class="ai-context-check" title="Include summary of your pending tasks & projects in the prompt">
+                <input type="checkbox" id="aiIncludeContext" checked />
+                <span>Workspace context</span>
+              </label>
+              <textarea id="aiPromptInput" rows="2" placeholder="Ask NEXORA AI to break down a project, draft a checklist, or prioritize your day..."></textarea>
+              <button class="btn btn-primary" id="aiSendBtn" type="submit">
+                <i data-lucide="send"></i>
+                <span>Send</span>
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- VIEW: EXPENSE TRACKER -->
+        <section class="view" id="view-expenses" data-view="expenses">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Expense Tracker</h1>
+              <p class="page-subtitle">Track income, expenses, category budgets, and spending analytics.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" id="openBudgetsBtn" type="button">
+                <i data-lucide="sliders"></i>
+                <span>Budgets</span>
+              </button>
+              <button class="btn btn-primary" id="addExpenseBtn" type="button">
+                <i data-lucide="plus"></i>
+                <span>Add Transaction</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-card-top">
+                <span class="stat-label">Total Income</span>
+                <span class="stat-icon-wrap"><i data-lucide="trending-up"></i></span>
+              </div>
+              <div class="stat-value" id="expTotalIncome">$0</div>
+              <div class="stat-desc" id="expIncomeDesc">This month</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top">
+                <span class="stat-label">Total Expenses</span>
+                <span class="stat-icon-wrap"><i data-lucide="trending-down"></i></span>
+              </div>
+              <div class="stat-value" id="expTotalSpent">$0</div>
+              <div class="stat-desc" id="expSpentDesc">This month</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top">
+                <span class="stat-label">Net Balance</span>
+                <span class="stat-icon-wrap"><i data-lucide="wallet"></i></span>
+              </div>
+              <div class="stat-value" id="expNetBalance">$0</div>
+              <div class="stat-desc">Income minus expenses</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top">
+                <span class="stat-label">Budget Used</span>
+                <span class="stat-icon-wrap"><i data-lucide="pie-chart"></i></span>
+              </div>
+              <div class="stat-value" id="expBudgetUsage">0%</div>
+              <div class="stat-desc" id="expBudgetDesc">Monthly budget limit</div>
+            </article>
+          </div>
+
+          <div class="expenses-charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Category Breakdown</h2>
+                  <p class="card-subtitle">Expense distribution this month</p>
+                </div>
+              </div>
+              <div id="expCategoryChart" class="exp-donut-wrap"></div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title">Category Budgets</h2>
+                  <p class="card-subtitle">Spending vs. monthly targets</p>
+                </div>
+              </div>
+              <div id="expBudgetsList" class="budgets-list"></div>
+            </div>
+          </div>
+
+          <div class="card toolbar-card" style="margin-top:20px;">
+            <div class="filter-tabs" id="expTypeFilters">
+              <button class="filter-tab active" type="button" data-exp-filter="all">All</button>
+              <button class="filter-tab" type="button" data-exp-filter="expense">Expenses</button>
+              <button class="filter-tab" type="button" data-exp-filter="income">Income</button>
+            </div>
+            <div class="toolbar-right">
+              <input type="month" id="expMonthFilter" class="text-input" aria-label="Filter by month" />
+              <select id="expCategoryFilter" class="select-input" aria-label="Filter by category">
+                <option value="all">All Categories</option>
+              </select>
+              <input type="search" id="expSearchInput" class="text-input" placeholder="Search transactions..." aria-label="Search transactions" />
+            </div>
+          </div>
+
+          <div class="card">
+            <div id="expTransactionsList" class="todo-list"></div>
+          </div>
+        </section>
+
+        <!-- VIEW: HABIT TRACKER -->
+        <section class="view" id="view-habits" data-view="habits">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Habit Tracker</h1>
+              <p class="page-subtitle">Build daily consistency with streaks and interactive completion calendars.</p>
+            </div>
+            <button class="btn btn-primary" id="addHabitBtn" type="button">
+              <i data-lucide="plus"></i>
+              <span>New Habit</span>
+            </button>
+          </div>
+          <div id="habitsGrid" class="habits-grid"></div>
+        </section>
+
+        <!-- VIEW: BOOKMARK MANAGER -->
+        <section class="view" id="view-bookmarks" data-view="bookmarks">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Bookmarks</h1>
+              <p class="page-subtitle">Organize links, documentation, and resources by folders and tags.</p>
+            </div>
+            <button class="btn btn-primary" id="addBookmarkBtn" type="button">
+              <i data-lucide="bookmark-plus"></i>
+              <span>Add Bookmark</span>
+            </button>
+          </div>
+
+          <div class="card toolbar-card">
+            <div class="filter-tabs" id="bookmarkFolderTabs"></div>
+            <div class="toolbar-right">
+              <select id="bookmarkTagFilter" class="select-input" aria-label="Filter by tag">
+                <option value="all">All Tags</option>
+              </select>
+              <input type="search" id="bookmarkSearchInput" class="text-input" placeholder="Search bookmarks..." aria-label="Search bookmarks" />
+            </div>
+          </div>
+
+          <div id="bookmarksGrid" class="bookmarks-grid"></div>
+        </section>
+
+        <!-- VIEW: QR CODE GENERATOR -->
+        <section class="view" id="view-qrcode" data-view="qrcode">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">QR Code Generator</h1>
+              <p class="page-subtitle">Generate crisp, offline-ready QR codes for URLs, text, or Wi-Fi credentials.</p>
+            </div>
+          </div>
+
+          <div class="qr-layout">
+            <div class="card">
+              <div class="form-group">
+                <label class="field-label" for="qrTextInput">Content / URL</label>
+                <textarea id="qrTextInput" class="text-input" rows="3" placeholder="https://example.com">https://nexora.workspace</textarea>
+              </div>
+              <div class="form-row-3">
+                <div class="form-group">
+                  <label class="field-label" for="qrSizeSelect">Size</label>
+                  <select id="qrSizeSelect" class="select-input">
+                    <option value="200">200 × 200 px</option>
+                    <option value="260" selected>260 × 260 px</option>
+                    <option value="340">340 × 340 px</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="qrFgColor">Foreground</label>
+                  <input type="color" id="qrFgColor" class="color-picker-input" value="#0f172a" />
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="qrBgColor">Background</label>
+                  <input type="color" id="qrBgColor" class="color-picker-input" value="#ffffff" />
+                </div>
+              </div>
+              <div class="quick-cities" style="margin-top:4px;">
+                <span>Templates:</span>
+                <button class="chip-btn" type="button" data-qr-preset="https://nexora.workspace">Website URL</button>
+                <button class="chip-btn" type="button" data-qr-preset="WIFI:T:WPA;S:MyNetwork;P:MyPassword;;">Wi-Fi Login</button>
+                <button class="chip-btn" type="button" data-qr-preset="mailto:hello@nexora.app">Email Link</button>
+              </div>
+            </div>
+
+            <div class="card qr-preview-card">
+              <div class="qr-canvas-frame">
+                <canvas id="qrCanvas" width="260" height="260"></canvas>
+              </div>
+              <p class="muted-text" id="qrMetaInfo">Ready</p>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+                <button class="btn btn-primary" id="qrDownloadPngBtn" type="button">
+                  <i data-lucide="download"></i>
+                  <span>Download PNG</span>
+                </button>
+                <button class="btn btn-secondary" id="qrDownloadSvgBtn" type="button">
+                  <i data-lucide="file-code"></i>
+                  <span>Download SVG</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: COLOR PALETTE GENERATOR -->
+        <section class="view" id="view-palette" data-view="palette">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Color Palette Generator</h1>
+              <p class="page-subtitle">Generate harmonious palettes, lock favorites, and copy HEX or RGB values.</p>
+            </div>
+            <div class="hero-actions">
+              <select id="paletteHarmonySelect" class="select-input" style="width:auto;" aria-label="Color harmony">
+                <option value="analogous">Analogous</option>
+                <option value="complementary">Complementary</option>
+                <option value="triadic">Triadic</option>
+                <option value="monochromatic">Monochromatic</option>
+                <option value="random">Curated Random</option>
+              </select>
+              <button class="btn btn-secondary" id="paletteSaveBtn" type="button">
+                <i data-lucide="heart"></i>
+                <span>Save Palette</span>
+              </button>
+              <button class="btn btn-primary" id="paletteGenerateBtn" type="button">
+                <i data-lucide="refresh-cw"></i>
+                <span>Generate</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="paletteSwatchesGrid" class="palette-swatches-grid"></div>
+
+          <div class="card" style="margin-top:20px;">
+            <div class="card-header">
+              <div>
+                <h2 class="card-title">Saved Palettes</h2>
+                <p class="card-subtitle">Click a palette to load it back into the generator</p>
+              </div>
+              <button class="btn btn-secondary btn-sm" id="paletteCopyCssBtn" type="button">
+                <i data-lucide="code"></i>
+                <span>Copy CSS Variables</span>
+              </button>
+            </div>
+            <div id="savedPalettesList" class="saved-palettes-list"></div>
+          </div>
+        </section>
+
+        <!-- VIEW: TYPING SPEED TEST -->
+        <section class="view" id="view-typing" data-view="typing">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Typing Speed Test</h1>
+              <p class="page-subtitle">Measure WPM and accuracy with live character feedback and personal records.</p>
+            </div>
+            <div class="hero-actions">
+              <div class="unit-toggle-group" id="typingDurationGroup">
+                <button class="unit-toggle" type="button" data-typing-dur="15">15s</button>
+                <button class="unit-toggle active" type="button" data-typing-dur="30">30s</button>
+                <button class="unit-toggle" type="button" data-typing-dur="60">60s</button>
+              </div>
+              <select id="typingCategorySelect" class="select-input" style="width:auto;" aria-label="Passage topic">
+                <option value="productivity">Productivity</option>
+                <option value="tech">Tech &amp; Code</option>
+                <option value="quotes">Mindset</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <div class="stat-card-top"><span class="stat-label">WPM</span><span class="stat-icon-wrap"><i data-lucide="gauge"></i></span></div>
+              <div class="stat-value" id="typingWpmVal">0</div>
+              <div class="stat-desc">Words per minute</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top"><span class="stat-label">Accuracy</span><span class="stat-icon-wrap"><i data-lucide="target"></i></span></div>
+              <div class="stat-value" id="typingAccVal">100%</div>
+              <div class="stat-desc">Keystroke precision</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top"><span class="stat-label">Time Left</span><span class="stat-icon-wrap"><i data-lucide="timer"></i></span></div>
+              <div class="stat-value" id="typingTimeVal">30s</div>
+              <div class="stat-desc" id="typingStateLabel">Start typing to begin</div>
+            </article>
+            <article class="stat-card">
+              <div class="stat-card-top"><span class="stat-label">Personal Best</span><span class="stat-icon-wrap"><i data-lucide="trophy"></i></span></div>
+              <div class="stat-value" id="typingBestVal">0</div>
+              <div class="stat-desc">Best WPM recorded</div>
+            </article>
+          </div>
+
+          <div class="card typing-arena-card">
+            <div class="typing-prompt-box" id="typingPromptBox" tabindex="0"></div>
+            <textarea id="typingHiddenInput" class="typing-input-area" rows="3" placeholder="Click here or start typing the passage above..." spellcheck="false" autocomplete="off"></textarea>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap;gap:10px;">
+              <span class="muted-text" id="typingErrorsLabel">Errors: 0</span>
+              <button class="btn btn-primary" id="typingRestartBtn" type="button">
+                <i data-lucide="rotate-ccw"></i>
+                <span>New Passage</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: MARKDOWN EDITOR -->
+        <section class="view" id="view-markdown" data-view="markdown">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Markdown Editor</h1>
+              <p class="page-subtitle">Write formatted documentation with live preview, HTML copy, and note export.</p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn btn-secondary" id="mdSaveAsNoteBtn" type="button">
+                <i data-lucide="sticky-note"></i>
+                <span>Save to Notes</span>
+              </button>
+              <button class="btn btn-secondary" id="mdCopyHtmlBtn" type="button">
+                <i data-lucide="code"></i>
+                <span>Copy HTML</span>
+              </button>
+              <button class="btn btn-primary" id="mdDownloadBtn" type="button">
+                <i data-lucide="download"></i>
+                <span>Download .md</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="card markdown-toolbar-card">
+            <div class="md-format-bar" id="mdFormatBar">
+              <button class="btn btn-ghost btn-sm" type="button" data-md-wrap="**">Bold</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-wrap="*">Italic</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-prefix="## ">H2</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-prefix="- ">List</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-prefix="> ">Quote</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-wrap="`">Code</button>
+              <button class="btn btn-ghost btn-sm" type="button" data-md-link="1">Link</button>
+            </div>
+            <span class="muted-text" id="mdWordCount">0 words • 0 chars</span>
+          </div>
+
+          <div class="markdown-split-grid">
+            <div class="card markdown-pane">
+              <div class="pane-label">Markdown Source</div>
+              <textarea id="mdSourceInput" class="md-textarea" placeholder="# Start writing Markdown..."></textarea>
+            </div>
+            <div class="card markdown-pane">
+              <div class="pane-label">Live Preview</div>
+              <div id="mdPreviewOutput" class="md-preview"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: SETTINGS -->
+        <section class="view" id="view-settings" data-view="settings">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Settings</h1>
+              <p class="page-subtitle">Personalize your NEXORA workspace, themes, accent colors, and local data.</p>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="card">
+              <h2 class="card-title">Profile</h2>
+              <p class="card-subtitle">Customize how your workspace greets you.</p>
+              <form id="settingsProfileForm" class="settings-form">
+                <div class="form-group">
+                  <label class="field-label" for="settingUserName">Display Name</label>
+                  <input type="text" id="settingUserName" class="text-input" maxlength="40" required />
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="settingUserRole">Role / Subtitle</label>
+                  <input type="text" id="settingUserRole" class="text-input" maxlength="40" />
+                </div>
+                <div class="form-group">
+                  <label class="field-label" for="settingDefaultCity">Default Weather City</label>
+                  <input type="text" id="settingDefaultCity" class="text-input" placeholder="e.g. New Delhi" />
+                </div>
+                <button class="btn btn-primary" type="submit">Save Profile</button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h2 class="card-title">Appearance, Accent &amp; Timer</h2>
+              <p class="card-subtitle">Customize theme mode, brand accent color, and focus intervals.</p>
+              <form id="settingsPreferencesForm" class="settings-form">
+                <div class="setting-row">
+                  <div>
+                    <strong>Dark Mode</strong>
+                    <p class="muted-text">Switch between crisp white and slate dark themes.</p>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="settingDarkMode" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="form-group">
+                  <label class="field-label">Accent Color</label>
+                  <div class="accent-swatches" id="accentSwatches">
+                    <button class="accent-dot active" type="button" data-accent="emerald" style="--swatch:#10b981;" title="Emerald (Default)"></button>
+                    <button class="accent-dot" type="button" data-accent="teal" style="--swatch:#14b8a6;" title="Teal"></button>
+                    <button class="accent-dot" type="button" data-accent="blue" style="--swatch:#3b82f6;" title="Ocean Blue"></button>
+                    <button class="accent-dot" type="button" data-accent="violet" style="--swatch:#8b5cf6;" title="Violet"></button>
+                    <button class="accent-dot" type="button" data-accent="amber" style="--swatch:#f59e0b;" title="Amber"></button>
+                    <button class="accent-dot" type="button" data-accent="rose" style="--swatch:#f43f5e;" title="Rose"></button>
+                  </div>
+                </div>
+
+                <div class="form-row-3">
+                  <div class="form-group">
+                    <label class="field-label" for="settingFocusMins">Focus (min)</label>
+                    <input type="number" id="settingFocusMins" class="text-input" min="1" max="120" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="field-label" for="settingShortMins">Short (min)</label>
+                    <input type="number" id="settingShortMins" class="text-input" min="1" max="60" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="field-label" for="settingLongMins">Long (min)</label>
+                    <input type="number" id="settingLongMins" class="text-input" min="1" max="60" required />
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Update Preferences</button>
+              </form>
+            </div>
+
+            <div class="card">
+              <h2 class="card-title">Data Backup &amp; Import</h2>
+              <p class="card-subtitle">Export all NEXORA records or restore from a JSON backup file.</p>
+              <div class="settings-actions">
+                <button class="btn btn-secondary" id="exportDataBtn" type="button">
+                  <i data-lucide="download"></i>
+                  <span>Export JSON Backup</span>
+                </button>
+                <button class="btn btn-secondary" id="importDataBtn" type="button">
+                  <i data-lucide="upload"></i>
+                  <span>Import JSON Backup</span>
+                </button>
+                <input type="file" id="importDataInput" accept=".json,application/json" class="hidden" />
+                <button class="btn btn-danger" id="resetAllDataBtn" type="button">
+                  <i data-lucide="trash-2"></i>
+                  <span>Reset All Workspace Data</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2 class="card-title">Offline &amp; PWA Support</h2>
+              <p class="card-subtitle">Install NEXORA as a standalone desktop or mobile web app.</p>
+              <div class="settings-actions">
+                <div class="pwa-status-row">
+                  <span class="pill-badge" id="pwaSupportStatus">Checking Service Worker...</span>
+                </div>
+                <button class="btn btn-primary hidden" id="pwaInstallBtn" type="button">
+                  <i data-lucide="smartphone"></i>
+                  <span>Install NEXORA App</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW: HELP & SUPPORT -->
+        <section class="view" id="view-help" data-view="help">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Help &amp; Support</h1>
+              <p class="page-subtitle">Quick tips, keyboard shortcuts, and answers about NEXORA.</p>
+            </div>
+          </div>
+
+          <div class="settings-grid">
+            <div class="card">
+              <h2 class="card-title">Keyboard Shortcuts</h2>
+              <p class="card-subtitle">Move faster across your workspace.</p>
+              <div class="shortcut-list">
+                <div class="shortcut-item"><span>Command Palette</span><kbd>Ctrl + K</kbd></div>
+                <div class="shortcut-item"><span>Focus Global Search</span><kbd>/</kbd></div>
+                <div class="shortcut-item"><span>Close Modal / Dropdown</span><kbd>Esc</kbd></div>
+                <div class="shortcut-item"><span>Calculator Digits &amp; Operators</span><kbd>0-9 + - * / % Enter</kbd></div>
+                <div class="shortcut-item"><span>Generate Palette (in Color Tool)</span><kbd>Space</kbd></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h2 class="card-title">Frequently Asked Questions</h2>
+              <div class="faq-list">
+                <details open>
+                  <summary>Where is my data stored?</summary>
+                  <p>Everything — tasks, notes, projects, calendar events, and settings — is saved automatically in your browser's LocalStorage. No account or backend server is required.</p>
+                </details>
+                <details>
+                  <summary>How does the Weather tool get live forecasts?</summary>
+                  <p>NEXORA fetches real-time meteorological data and geocoding directly from the public Open-Meteo API.</p>
+                </details>
+                <details>
+                  <summary>Does the Focus Timer keep running when I switch tools?</summary>
+                  <p>Yes! Your Focus Timer runs seamlessly in the background across all NEXORA views, and its live countdown remains visible in the sidebar.</p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TASK -->
+  <div class="modal-overlay hidden" id="taskModal" role="dialog" aria-modal="true" aria-labelledby="taskModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="taskModalTitle">Add New Task</h2>
+        <button class="icon-btn" type="button" data-close-modal="taskModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="taskForm" class="modal-body">
+        <input type="hidden" id="taskEditId" />
+        <div class="form-group">
+          <label class="field-label" for="taskTitleInput">Task Title</label>
+          <input type="text" id="taskTitleInput" class="text-input" placeholder="e.g., Prepare Q4 product roadmap" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="taskPriorityInput">Priority</label>
+            <select id="taskPriorityInput" class="select-input">
+              <option value="High">High</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="taskDueDateInput">Due Date</label>
+            <input type="date" id="taskDueDateInput" class="text-input" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="taskNotesInput">Notes (optional)</label>
+          <textarea id="taskNotesInput" class="text-input" rows="3" placeholder="Additional context..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="taskModal">Cancel</button>
+          <button class="btn btn-primary" type="submit" id="taskSubmitBtn">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT EVENT -->
+  <div class="modal-overlay hidden" id="eventModal" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="eventModalTitle">Add Calendar Event</h2>
+        <button class="icon-btn" type="button" data-close-modal="eventModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="eventForm" class="modal-body">
+        <input type="hidden" id="eventEditId" />
+        <div class="form-group">
+          <label class="field-label" for="eventTitleInput">Event Title</label>
+          <input type="text" id="eventTitleInput" class="text-input" placeholder="e.g., Design Review Sync" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="eventDateInput">Date</label>
+            <input type="date" id="eventDateInput" class="text-input" required />
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="eventTimeInput">Time</label>
+            <input type="time" id="eventTimeInput" class="text-input" value="10:00" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="eventDescInput">Description</label>
+          <textarea id="eventDescInput" class="text-input" rows="2" placeholder="Location, link, or notes..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="eventModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT PROJECT -->
+  <div class="modal-overlay hidden" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="projectModalTitle">New Project</h2>
+        <button class="icon-btn" type="button" data-close-modal="projectModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="projectForm" class="modal-body">
+        <input type="hidden" id="projectEditId" />
+        <div class="form-group">
+          <label class="field-label" for="projectNameInput">Project Name</label>
+          <input type="text" id="projectNameInput" class="text-input" placeholder="e.g., Brand Refresh 2026" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="projectStatusInput">Status</label>
+            <select id="projectStatusInput" class="select-input">
+              <option value="Active">Active</option>
+              <option value="On Hold">On Hold</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="projectProgressInput">Progress (%)</label>
+            <input type="number" id="projectProgressInput" class="text-input" min="0" max="100" value="25" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="projectDueInput">Target Date</label>
+          <input type="date" id="projectDueInput" class="text-input" required />
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="projectDescInput">Summary</label>
+          <textarea id="projectDescInput" class="text-input" rows="2" placeholder="Project scope and goals..."></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="projectModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: QUICK NOTE -->
+  <div class="modal-overlay hidden" id="noteModal" role="dialog" aria-modal="true" aria-labelledby="noteModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="noteModalTitle">Quick Note</h2>
+        <button class="icon-btn" type="button" data-close-modal="noteModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="quickNoteForm" class="modal-body">
+        <input type="hidden" id="quickNoteEditId" />
+        <div class="form-group">
+          <label class="field-label" for="quickNoteTitleInput">Title</label>
+          <input type="text" id="quickNoteTitleInput" class="text-input" placeholder="e.g., Sprint retrospective points" required />
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="quickNoteTagInput">Category</label>
+          <select id="quickNoteTagInput" class="select-input">
+            <option value="General">General</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Ideas">Ideas</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="quickNoteBodyInput">Content</label>
+          <textarea id="quickNoteBodyInput" class="text-input" rows="4" placeholder="Write your note..." required></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="noteModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: CONFIRMATION -->
+  <div class="modal-overlay hidden" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h2 id="confirmTitle">Confirm Action</h2>
+        <button class="icon-btn" type="button" data-close-modal="confirmModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage" class="confirm-text">Are you sure you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="confirmCancelBtn" type="button">Cancel</button>
+        <button class="btn btn-danger" id="confirmProceedBtn" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COMMAND PALETTE (Ctrl+K) -->
+  <div class="modal-overlay hidden" id="commandPaletteModal" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="modal-card cmd-modal">
+      <div class="cmd-input-row">
+        <i data-lucide="terminal"></i>
+        <input type="text" id="cmdPaletteInput" placeholder="Type a command, jump to a tool, or search workspace..." autocomplete="off" />
+        <kbd class="search-shortcut" style="position:static;">Esc</kbd>
+      </div>
+      <div class="cmd-results-list" id="cmdPaletteResults"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: AI API CONFIGURATION -->
+  <div class="modal-overlay hidden" id="aiConfigModal" role="dialog" aria-modal="true" aria-labelledby="aiConfigTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="aiConfigTitle">AI Assistant API Settings</h2>
+        <button class="icon-btn" type="button" data-close-modal="aiConfigModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="aiConfigForm" class="modal-body">
+        <div class="form-group">
+          <label class="field-label" for="aiProviderSelect">Provider Format</label>
+          <select id="aiProviderSelect" class="select-input">
+            <option value="openai">OpenAI / OpenRouter / Groq (OpenAI-Compatible)</option>
+            <option value="gemini">Google Gemini (generativelanguage.googleapis.com)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="aiEndpointInput">API Endpoint URL</label>
+          <input type="url" id="aiEndpointInput" class="text-input" placeholder="https://api.openai.com/v1/chat/completions" required />
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="aiModelInput">Model Name</label>
+          <input type="text" id="aiModelInput" class="text-input" placeholder="e.g., gpt-4o-mini or gemini-2.5-flash" required />
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="aiApiKeyInput">API Key (stored locally in browser)</label>
+          <input type="password" id="aiApiKeyInput" class="text-input" placeholder="sk-... or AIza..." autocomplete="off" />
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="aiConfigModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Configuration</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT EXPENSE OR INCOME -->
+  <div class="modal-overlay hidden" id="expenseModal" role="dialog" aria-modal="true" aria-labelledby="expenseModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="expenseModalTitle">Add Transaction</h2>
+        <button class="icon-btn" type="button" data-close-modal="expenseModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="expenseForm" class="modal-body">
+        <input type="hidden" id="expEditId" />
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="expTypeInput">Type</label>
+            <select id="expTypeInput" class="select-input">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="expAmountInput">Amount ($)</label>
+            <input type="number" id="expAmountInput" class="text-input" min="0.01" step="0.01" placeholder="0.00" required />
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="expCatInput">Category</label>
+            <select id="expCatInput" class="select-input"></select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="expDateInput">Date</label>
+            <input type="date" id="expDateInput" class="text-input" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="expDescInput">Description</label>
+          <input type="text" id="expDescInput" class="text-input" placeholder="e.g., Team lunch or Monthly salary" required />
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="expenseModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: EDIT BUDGETS -->
+  <div class="modal-overlay hidden" id="budgetModal" role="dialog" aria-modal="true" aria-labelledby="budgetModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="budgetModalTitle">Monthly Category Budgets</h2>
+        <button class="icon-btn" type="button" data-close-modal="budgetModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="budgetForm" class="modal-body">
+        <div id="budgetFieldsContainer"></div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="budgetModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Budgets</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT HABIT -->
+  <div class="modal-overlay hidden" id="habitModal" role="dialog" aria-modal="true" aria-labelledby="habitModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="habitModalTitle">New Habit</h2>
+        <button class="icon-btn" type="button" data-close-modal="habitModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="habitForm" class="modal-body">
+        <input type="hidden" id="habitEditId" />
+        <div class="form-group">
+          <label class="field-label" for="habitNameInput">Habit Name</label>
+          <input type="text" id="habitNameInput" class="text-input" placeholder="e.g., Read 20 pages, Workout, Meditate" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="habitCatInput">Category</label>
+            <select id="habitCatInput" class="select-input">
+              <option value="Health">Health</option>
+              <option value="Learning">Learning</option>
+              <option value="Focus">Focus</option>
+              <option value="Mindfulness">Mindfulness</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="habitGoalInput">Weekly Target (days)</label>
+            <input type="number" id="habitGoalInput" class="text-input" min="1" max="7" value="5" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="habitModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT BOOKMARK -->
+  <div class="modal-overlay hidden" id="bookmarkModal" role="dialog" aria-modal="true" aria-labelledby="bookmarkModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="bookmarkModalTitle">Add Bookmark</h2>
+        <button class="icon-btn" type="button" data-close-modal="bookmarkModal" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="bookmarkForm" class="modal-body">
+        <input type="hidden" id="bmEditId" />
+        <div class="form-group">
+          <label class="field-label" for="bmTitleInput">Title</label>
+          <input type="text" id="bmTitleInput" class="text-input" placeholder="e.g., MDN Web Docs" required />
+        </div>
+        <div class="form-group">
+          <label class="field-label" for="bmUrlInput">URL</label>
+          <input type="text" id="bmUrlInput" class="text-input" placeholder="https://developer.mozilla.org" required />
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="field-label" for="bmFolderInput">Folder</label>
+            <input type="text" id="bmFolderInput" class="text-input" list="bmFolderSuggestions" placeholder="Work, Dev, Design..." required />
+            <datalist id="bmFolderSuggestions">
+              <option value="Work"></option>
+              <option value="Development"></option>
+              <option value="Design"></option>
+              <option value="Reading"></option>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label class="field-label" for="bmTagsInput">Tags (comma separated)</label>
+            <input type="text" id="bmTagsInput" class="text-input" placeholder="docs, reference, css" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-close-modal="bookmarkModal">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save Bookmark</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+  <script src="modules.js"></script>
+</body>
+</html>
