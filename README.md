@@ -18,17 +18,7 @@ A modern and responsive dashboard website built using HTML, CSS, and JavaScript.
 
 🚀 Live Demo
 
-"View Live Website" (YOUR_GITHUB_PAGES_LINK)
-
-💻 Run Locally
-
-1. Clone this repository:
-   
-   git clone YOUR_REPOSITORY_URL
-
-2. Open the project folder.
-
-3. Open "index.html" in your browser.
+https://8bit-nikhil.github.io/dashboard/
 
 📁 Project Structure
 
@@ -38,11 +28,11 @@ Dashboard/
 ├── script.js
 └── README.md
 
-👨‍💻 Author
+👨‍💻 Dhrxv18
 
 Dhruv
 
-GitHub: "Your GitHub Profile" (YOUR_GITHUB_PROFILE_LINK)
+GitHub: github.com/8bit-nikhil
 
 ---
 
